@@ -1,0 +1,46 @@
+body{
+    background: linear-gradient(
+        135deg,
+        #1e3c72,
+        #2a5298
+    );
+    min-height:100vh;
+}
+
+.card{
+    background:white;
+    border-radius:20px;
+}
+
+.form-control{
+    border-radius:10px;
+    padding:12px;
+}
+
+.btn{
+    border-radius:10px;
+    font-weight:600;
+}
+
+.navbar{
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+.hero-section{
+    background: linear-gradient(
+        135deg,
+        #f8fafc,
+        #e2e8f0
+    );
+}
+
+.hero-section h1{
+    color:#0f172a;
+}
+
+.card{
+    border-radius:20px;
+}
+
+.btn{
+    border-radius:12px;
+}

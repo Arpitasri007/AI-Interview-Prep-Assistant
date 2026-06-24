@@ -1,0 +1,66 @@
+<body>
+
+<div class="container main-container">
+
+    <div class="custom-card">
+
+        <h1 class="text-center mb-4">
+            Interview Result
+        </h1>
+
+        <div class="score-circle">
+            {{ score }}%
+        </div>
+
+        <div class="text-center mt-3">
+
+            {% if score >= 80 %}
+                <h4 class="text-success">Excellent Performance 🚀</h4>
+
+            {% elif score >= 60 %}
+                <h4 class="text-primary">Good Performance 👍</h4>
+
+            {% elif score >= 40 %}
+                <h4 class="text-warning">Needs Improvement ⚠️</h4>
+
+            {% else %}
+                <h4 class="text-danger">Keep Practicing 📚</h4>
+
+            {% endif %}
+
+        </div>
+
+        <hr>
+
+        <h4>Your Answer</h4>
+
+        <div class="answer-box">
+            {{ user_answer }}
+        </div>
+
+        <br>
+
+        <h4>Expected Answer</h4>
+
+        <div class="expected-box">
+            {{ model_answer }}
+        </div>
+
+        <div class="mt-4 text-center">
+
+            <a href="/" class="btn btn-primary btn-lg">
+                Next Question
+            </a>
+
+            <a href="/dashboard"
+               class="btn btn-success btn-lg ms-2">
+                Dashboard
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>

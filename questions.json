@@ -1,0 +1,154 @@
+{
+"Python": {
+"Easy": [
+{
+"question": "What is a list in Python?",
+"answer": "A list is a mutable ordered collection of items."
+},
+{
+"question": "What is a tuple?",
+"answer": "A tuple is an immutable ordered collection of items."
+},
+{
+"question": "What is a dictionary?",
+"answer": "A dictionary stores key-value pairs."
+}
+],
+"Medium": [
+{
+"question": "What is a decorator in Python?",
+"answer": "A decorator is a function that modifies the behavior of another function."
+},
+{
+"question": "Explain list comprehension.",
+"answer": "List comprehension provides a concise way to create lists."
+},
+{
+"question": "What is exception handling?",
+"answer": "Exception handling manages runtime errors using try except blocks."
+}
+],
+"Hard": [
+{
+"question": "Explain Python GIL.",
+"answer": "The Global Interpreter Lock allows only one thread to execute Python bytecode at a time."
+},
+{
+"question": "What are metaclasses?",
+"answer": "Metaclasses are classes of classes that define how classes behave."
+},
+{
+"question": "Explain generators.",
+"answer": "Generators produce values lazily using the yield keyword."
+}
+]
+},
+
+"OOP": {
+"Easy": [
+{
+"question": "What is encapsulation?",
+"answer": "Encapsulation is bundling data and methods together."
+},
+{
+"question": "What is inheritance?",
+"answer": "Inheritance allows one class to acquire properties of another."
+}
+],
+"Medium": [
+{
+"question": "What is polymorphism?",
+"answer": "Polymorphism allows one interface to represent multiple forms."
+},
+{
+"question": "What is abstraction?",
+"answer": "Abstraction hides implementation details and exposes essential features."
+}
+],
+"Hard": [
+{
+"question": "Difference between abstraction and encapsulation.",
+"answer": "Abstraction hides complexity while encapsulation protects data."
+}
+]
+},
+
+"DBMS": {
+"Easy": [
+{
+"question": "What is a primary key?",
+"answer": "A primary key uniquely identifies each record in a table."
+},
+{
+"question": "What is a foreign key?",
+"answer": "A foreign key creates a relationship between tables."
+}
+],
+"Medium": [
+{
+"question": "What is normalization?",
+"answer": "Normalization reduces redundancy and improves data integrity."
+},
+{
+"question": "What is indexing?",
+"answer": "Indexing improves database query performance."
+}
+],
+"Hard": [
+{
+"question": "Explain ACID properties.",
+"answer": "ACID stands for Atomicity, Consistency, Isolation and Durability."
+}
+]
+},
+
+"Operating Systems": {
+"Easy": [
+{
+"question": "What is an operating system?",
+"answer": "An operating system manages hardware and software resources."
+}
+],
+"Medium": [
+{
+"question": "What is a process?",
+"answer": "A process is a program in execution."
+},
+{
+"question": "What is a thread?",
+"answer": "A thread is the smallest unit of execution."
+}
+],
+"Hard": [
+{
+"question": "Explain deadlock.",
+"answer": "Deadlock occurs when processes wait indefinitely for resources."
+}
+]
+},
+
+"Computer Networks": {
+"Easy": [
+{
+"question": "What is an IP address?",
+"answer": "An IP address uniquely identifies a device on a network."
+}
+],
+"Medium": [
+{
+"question": "What is TCP?",
+"answer": "TCP is a reliable connection-oriented transport protocol."
+},
+{
+"question": "What is UDP?",
+"answer": "UDP is a fast connectionless transport protocol."
+}
+],
+"Hard": [
+{
+"question": "Explain the TCP three-way handshake.",
+"answer": "TCP establishes connections using SYN, SYN-ACK and ACK packets."
+}
+]
+}
+}
