@@ -69,7 +69,7 @@ Track progress on dashboard & leaderboard
 📈 Advanced analytics dashboard
 🤝 Contributing
 
-👨‍💻 Author
+👨‍💻 Author:
 Arpita Srivastava
 GitHub: https://github.com/Arpitasri007/AI-Interview-Prep-Assistant
 
