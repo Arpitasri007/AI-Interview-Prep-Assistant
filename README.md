@@ -18,7 +18,10 @@ This project is designed to help candidates improve their technical knowledge, c
 📈 Dashboard for tracking progress
 💻 User-friendly web interface
 🔄 Extensible question dataset
+
+
 🛠️ Tech Stack
+
 Technology	Purpose
 Python	Core programming language
 Flask	Backend web framework
@@ -28,7 +31,11 @@ Scikit-learn	Answer evaluation and scoring
 Pandas	Data processing
 NumPy	Numerical computations
 Git & GitHub	Version control
+
+
+
 📂 Project Structure
+
 AI-Interview-Prep-Assistant/
 │
 ├── app.py
@@ -53,6 +60,8 @@ AI-Interview-Prep-Assistant/
 │
 └── models/
     └── scoring_model.pkl
+
+
 🚀 Installation
 Clone the Repository
 git clone https://github.com/Arpitasri007/AI-Interview-Prep-Assistant.git
@@ -76,6 +85,8 @@ python app.py
 Open:
 
 http://127.0.0.1:5000
+
+
 🎮 Usage
 Launch the application.
 Select a subject and difficulty level.
