@@ -118,13 +118,22 @@ Interview performance analytics
 Contributions are welcome.
 
 Fork the repository
+
 Create a feature branch
+
 git checkout -b feature-name
+
 Commit changes
+
 git commit -m "Add new feature"
+
 Push to your branch
+
 git push origin feature-name
+
 Create a Pull Request
+
+
 👩‍💻 Author
 
 Arpita Srivastava
