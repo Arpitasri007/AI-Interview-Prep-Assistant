@@ -1,82 +1,125 @@
 🧠 AI Interview Preparation Assistant
 
-An intelligent web-based Interview Preparation System built using Flask that helps users practice interview questions, evaluate answers, and improve performance using an AI-based scoring approach.
+An AI-powered web application that helps students and job seekers prepare for technical interviews through interactive practice sessions, answer evaluation, performance tracking, and leaderboards.
 
-**🚀 Features
-📌 Subject-wise interview questions (Python, OOP, DBMS, etc.)
-🎯 Difficulty levels (Easy, Medium, Hard)
-🤖 AI-based answer evaluation / scoring system
-🏆 Leaderboard to track performance
-📊 Dashboard for user progress tracking
-🔄 Random question generation for practice
-🧑‍💻 Simple and interactive UI using Flask templates
+📌 Project Overview
 
-**🛠️ Tech Stack
-Backend: Python, Flask
-Frontend: HTML, CSS, Bootstrap
-AI/ML: Scikit-learn (for scoring logic / evaluation if used)
-Database: CSV / JSON (or SQLite if implemented)
-Other Tools: Git, GitHub
+The AI Interview Preparation Assistant simulates a real interview environment by presenting users with subject-specific questions and evaluating their responses. It enables continuous learning through practice, feedback, and progress tracking.
 
-**📁 Project Structure
-InterviewPrepAI/
+This project is designed to help candidates improve their technical knowledge, confidence, and interview performance.
+
+✨ Features
+🎯 Subject-wise interview preparation
+📚 Multiple domains such as Python, OOP, DBMS, and more
+📊 Easy, Medium, and Hard difficulty levels
+🔀 Random interview question generation
+🤖 Automated answer evaluation and scoring
+🏆 Leaderboard to compare performance
+📈 Dashboard for tracking progress
+💻 User-friendly web interface
+🔄 Extensible question dataset
+🛠️ Tech Stack
+Technology	Purpose
+Python	Core programming language
+Flask	Backend web framework
+HTML/CSS	Frontend structure and styling
+Bootstrap	Responsive UI
+Scikit-learn	Answer evaluation and scoring
+Pandas	Data processing
+NumPy	Numerical computations
+Git & GitHub	Version control
+📂 Project Structure
+AI-Interview-Prep-Assistant/
 │
 ├── app.py
 ├── requirements.txt
-├── data/
-│   └── questions.json / questions.csv
+├── Procfile
+├── README.md
+├── .gitignore
+│
 ├── templates/
 │   ├── index.html
 │   ├── dashboard.html
 │   ├── leaderboard.html
+│   └── ...
 │
 ├── static/
 │   ├── css/
 │   ├── js/
+│   └── images/
 │
-├── models/ (if any ML model used)
-└── README.md
-
-**⚙️ Installation & Setup
-1. Clone the repository
-git clone https://github.com/your-username/AI-Interview-Prep-Assistant.git
+├── data/
+│   └── questions.json
+│
+└── models/
+    └── scoring_model.pkl
+🚀 Installation
+Clone the Repository
+git clone https://github.com/Arpitasri007/AI-Interview-Prep-Assistant.git
 cd AI-Interview-Prep-Assistant
-2. Create virtual environment (optional but recommended)
+Create Virtual Environment
 python -m venv venv
-3. Activate environment
-Windows:
+Activate Virtual Environment
+
+Windows
+
 venv\Scripts\activate
-4. Install dependencies
+
+Linux / macOS
+
+source venv/bin/activate
+Install Dependencies
 pip install -r requirements.txt
-5. Run the application
+Run the Application
 python app.py
-6. Open in browser
+
+Open:
+
 http://127.0.0.1:5000
+🎮 Usage
+Launch the application.
+Select a subject and difficulty level.
+Attempt the generated interview question.
+Submit your answer.
+Receive an evaluation score and feedback.
+Track your progress on the dashboard.
+Compete with others through the leaderboard.
+📸 Screenshots
 
-**📊 How It Works
-Select a subject (e.g., Python)
-Choose difficulty level
-Get a random interview question
-Write your answer
-System evaluates and provides feedback/score
-Track progress on dashboard & leaderboard
+Add screenshots of your application here:
 
-**🧠 Future Improvements
-🧠 Integrate OpenAI / LLM-based answer evaluation
-🎤 Add voice-based interview simulation
-📱 Mobile responsive UI improvements
-🗄️ Use database (MySQL/PostgreSQL) instead of CSV
-📈 Advanced analytics dashboard
+Home Page
+screenshots/home.png
+Dashboard
+screenshots/dashboard.png
+Leaderboard
+screenshots/leaderboard.png
+🔮 Future Enhancements
+Integration with Large Language Models (LLMs)
+Real-time AI feedback
+Voice-based mock interviews
+Resume-based question generation
+User authentication system
+Cloud database integration
+Interview performance analytics
 🤝 Contributing
 
-👨‍💻 Author:
+Contributions are welcome.
+
+Fork the repository
+Create a feature branch
+git checkout -b feature-name
+Commit changes
+git commit -m "Add new feature"
+Push to your branch
+git push origin feature-name
+Create a Pull Request
+👩‍💻 Author
+
 Arpita Srivastava
-GitHub: https://github.com/Arpitasri007/AI-Interview-Prep-Assistant
 
-⭐ Show Your Support
+GitHub: https://github.com/Arpitasri007
 
-If you like this project:
+⭐ Acknowledgements
 
-⭐ Star the repository
-🍴 Fork it
-📢 Share it
+This project was developed to help students and professionals prepare effectively for technical interviews through interactive and AI-assisted learning.
