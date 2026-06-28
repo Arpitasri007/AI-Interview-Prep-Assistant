@@ -7,7 +7,8 @@
     <title>InterviewPrep AI</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
+    <link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
 </head>
@@ -50,30 +51,35 @@ let timer = setInterval(() => {
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
         <div class="container">
-
             <a class="navbar-brand fw-bold" href="/">
+                <i class="bi bi-robot"></i>
                 InterviewPrep AI
             </a>
-
             <div>
-
-                <a href="/dashboard"
-                   class="btn btn-outline-light me-2">
+                <a href="/dashboard" class="btn btn-outline-light me-2">
+                    <i class="bi bi-speedometer2"></i>
                     Dashboard
                 </a>
-
-                <a href="/logout"
-                   class="btn btn-danger">
-                    Logout
+                <a href="/leaderboard" class="btn btn-outline-light me-2">
+                    <i class="bi bi-trophy"></i>
+                    Leaderboard
                 </a>
-                <a href="/dashboard" class="btn btn-outline-light">Dashboard</a>
-                <a href="/leaderboard" class="btn btn-outline-light">Leaderboard</a>
-                <a href="/resume" class="btn btn-outline-light">Resume Analyzer</a>
-                <a href="/hr" class="btn btn-outline-light">HR Interview</a>
+                <a href="/resume" class="btn btn-outline-light me-2">
+                    <i class="bi bi-file-earmark-person"></i>
+                    Resume
+                </a>
+                <a href="/hr" class="btn btn-outline-light me-2">
+                    <i class="bi bi-person-workspace"></i>
+                    HR Interview
+                </a>
+                <button
+                    id="themeBtn"
+                    class="btn btn-warning">
+                    🌙
+                </button>
             </div>
-
         </div>
     </nav>
 
@@ -114,8 +120,7 @@ let timer = setInterval(() => {
                                 <select
                                     name="subject"
                                     id="subject"
-                                    class="form-select"
-                                    onchange="changeQuestion()">
+                                    class="form-select">
 
                                     {% for sub in subjects %}
                                     <option value="{{ sub }}">
@@ -130,17 +135,31 @@ let timer = setInterval(() => {
                             <select
                             name="difficulty"
                             id="difficulty"
-                            class="form-select"
-                            onchange="changeQuestion()">
+                            class="form-select">
                             <option value="Easy">Easy</option>
                             <option value="Medium">Medium</option>
                             <option value="Hard">Hard</option>
                             </select>
                             <div class="alert alert-danger text-center">
-                                <h3 id="timer">
+                                <h2 id="timer">
                                     02:00
-                                </h3>
+                                </h2>
                             </div>
+                            <div class="mb-4">
+                            <div class="d-flex justify-content-between">
+                                <span>Progress</span>
+                                <span id="progressText">
+                                    Question 1 / 10
+                                </span>
+                            </div>
+                            <div class="progress">
+                            <div
+                            id="progressBar"
+                            class="progress-bar progress-bar-striped progress-bar-animated"
+                            style="width:10%">
+                        </div>
+                        </div>
+                        </div>
                             <!-- Question -->
                             <div class="alert alert-primary">
 
@@ -200,43 +219,59 @@ let timer = setInterval(() => {
         </div>
 
     </div>
+   <script>
+   const questionsData = {{ questions|tojson|safe }};
+   function updateQuestion() {
+    const subject =
+        document.getElementById("subject").value;
+    const difficulty =
+        document.getElementById("difficulty").value;
 
-    <!-- Question Update Script -->
-    <script>
+    const questionList =
+        questionsData[subject][difficulty];
 
-    async function changeQuestion() {
+    const randomQuestion =
+        questionList[
+            Math.floor(
+                Math.random() * questionList.length
+            )
+        ];
 
-        let subject =
-            document.getElementById("subject").value;
+    document.getElementById(
+        "questionText"
+    ).innerText = randomQuestion.question;
 
-        let formData = new FormData();
-
-        formData.append(
-            "subject",
-            subject
-        );
-
-        let response = await fetch(
-            "/get_question",
-            {
-                method: "POST",
-                body: formData
-            }
-        );
-
-        let data = await response.json();
-
-        document.getElementById(
-            "questionText"
-        ).innerText = data.question;
-
-        document.getElementById(
-            "question"
-        ).value = data.question;
+    document.getElementById(
+        "question"
+        ).value = randomQuestion.question;
     }
 
-    </script>
+    document.getElementById(
+        "subject"
+        ).addEventListener(
+        "change",
+        updateQuestion
+    );
 
+        document.getElementById(
+        "difficulty"
+        ).addEventListener(
+        "change",
+        updateQuestion
+    );
+
+    window.onload = updateQuestion;
+
+    </script>
+    <script>
+    const btn =
+    document.getElementById("themeBtn");
+    btn.addEventListener("click",()=>{
+        document.body.classList.toggle(
+            "dark-mode"
+        );
+    });
+    </script>
 </body>
 
 </html>

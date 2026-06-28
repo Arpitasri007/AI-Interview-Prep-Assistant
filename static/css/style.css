@@ -38,9 +38,152 @@ body{
 }
 
 .card{
-    border-radius:20px;
-}
+    border:none;
+    border-radius:25px;
+    backdrop-filter:blur(15px);
+    background:
+    rgba(255,255,255,0.9);
 
+    transition:.3s;
+}
+.card:hover{
+    transform:translateY(-5px);
+}
 .btn{
     border-radius:12px;
+}
+.dark-mode{
+    background:#121212;
+    color:white;
+}
+
+.dark-mode .card{
+    background:#1e1e1e;
+    color:white;
+}
+
+.dark-mode textarea,
+.dark-mode select{
+    background:#2a2a2a;
+    color:white;
+}
+#timer{
+
+font-size:2rem;
+font-weight:bold;
+
+animation:pulse 1s infinite;
+
+}
+
+@keyframes pulse{
+
+0%{
+transform:scale(1);
+}
+
+50%{
+transform:scale(1.1);
+}
+
+100%{
+transform:scale(1);
+}
+
+}
+.score-circle{
+
+    width:180px;
+    height:180px;
+
+    border-radius:50%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:2rem;
+    font-weight:bold;
+
+    margin:auto;
+
+    background: conic-gradient(#0d6efd calc(var(--score) * 1%), #e9ecef 0);
+}
+body{
+
+background:
+linear-gradient(
+135deg,
+#1e3c72,
+#2a5298
+);
+
+min-height:100vh;
+
+}
+.btn{
+
+transition:.3s;
+
+}
+
+.btn:hover{
+
+transform:translateY(-3px);
+
+}
+/* RESULT PAGE */
+
+.main-container{
+    padding-top:50px;
+    padding-bottom:50px;
+}
+
+.custom-card{
+    max-width:900px;
+    margin:auto;
+    background:white;
+    border-radius:25px;
+    padding:40px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.2);
+}
+
+.score-circle{
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    background:#0d6efd;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:2.5rem;
+    font-weight:bold;
+    margin:auto;
+}
+
+.answer-box{
+    background:#f8f9fa;
+    padding:20px;
+    border-radius:12px;
+    border-left:5px solid #dc3545;
+}
+
+.expected-box{
+    background:#f8f9fa;
+    padding:20px;
+    border-radius:12px;
+    border-left:5px solid #198754;
+}
+
+.custom-card h1{
+    font-weight:700;
+}
+
+.custom-card h4{
+    margin-bottom:15px;
+}
+
+.custom-card hr{
+    margin:30px 0;
 }

@@ -1,3 +1,16 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Interview Result</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
 <body>
 
 <div class="container main-container">
@@ -15,16 +28,32 @@
         <div class="text-center mt-3">
 
             {% if score >= 80 %}
-                <h4 class="text-success">Excellent Performance 🚀</h4>
+            <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+            <script>
+             confetti({
+                particleCount:200,
+                spread:120
+            });   
+            </script>
+
+            <h4 class="text-success">
+                Excellent Performance 🚀
+            </h4>
 
             {% elif score >= 60 %}
-                <h4 class="text-primary">Good Performance 👍</h4>
+                <h4 class="text-primary">
+                    Good Performance 👍
+                </h4>
 
             {% elif score >= 40 %}
-                <h4 class="text-warning">Needs Improvement ⚠️</h4>
+                <h4 class="text-warning">
+                    Needs Improvement ⚠️
+                </h4>
 
             {% else %}
-                <h4 class="text-danger">Keep Practicing 📚</h4>
+                <h4 class="text-danger">
+                    Keep Practicing 📚
+                </h4>
 
             {% endif %}
 
@@ -64,3 +93,4 @@
 </div>
 
 </body>
+</html>

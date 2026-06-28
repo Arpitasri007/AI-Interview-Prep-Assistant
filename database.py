@@ -1,11 +1,10 @@
 import sqlite3
 
 conn = sqlite3.connect("interview.db")
-
 cursor = conn.cursor()
 
 cursor.execute("""
-CREATE TABLE IF NOT EXISTS users (
+CREATE TABLE users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT UNIQUE,
     password TEXT
@@ -13,10 +12,11 @@ CREATE TABLE IF NOT EXISTS users (
 """)
 
 cursor.execute("""
-CREATE TABLE IF NOT EXISTS results (
+CREATE TABLE results (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER,
     subject TEXT,
+    difficulty TEXT,
     score REAL
 )
 """)

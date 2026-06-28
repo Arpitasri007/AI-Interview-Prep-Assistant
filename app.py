@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request,redirect,session
+
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import json
@@ -6,9 +7,7 @@ import random
 import os
 import sqlite3
 from flask import jsonify
-import fitz
-
-from streamlit import feedback
+from PyPDF2 import PdfReader
 from werkzeug.security import (
     generate_password_hash,
     check_password_hash
@@ -192,6 +191,7 @@ def home():
     return render_template(
         "index.html",
         subjects=questions.keys(),
+        questions=questions,#IMPORTANT: Pass the entire questions dictionary to the template
         question=random_question["question"],
         difficulty=difficulty
     )
@@ -200,8 +200,10 @@ def home():
 @app.route('/get_question', methods=['POST'])
 def get_question():
 
-    subject = request.form['subject']
-    difficulty = request.form['difficulty']
+    subject = request.form.get('subject')
+    difficulty = request.form.get('difficulty')
+    if not subject or not difficulty:
+        return jsonify({"question": "No question found"})
     random_question = random.choice(
         questions[subject][difficulty]
     )
@@ -213,9 +215,10 @@ def get_question():
 @app.route('/evaluate', methods=['POST'])
 def evaluate():
 
-    subject = request.form['subject']
-    question = request.form['question']
-    user_answer = request.form['answer']
+    subject = request.form.get('subject')
+    difficulty = request.form.get('difficulty')
+    question = request.form.get('question')
+    user_answer = request.form.get('answer')
 
     model_answer = ""
     difficulty = request.form['difficulty']
@@ -234,8 +237,12 @@ def evaluate():
         vectors[0],
         vectors[1]
     )[0][0]
-
-    percentage = round(score * 100, 2)
+    keywords = model_answer.lower().split()
+    bonus = 0
+    for word in keywords:
+        if word in user_answer.lower():
+            bonus += 0.02
+    percentage = round(score * 100, 2) + bonus
     feedback = []
 
     answer = user_answer.lower()
@@ -269,29 +276,44 @@ def evaluate():
         cursor.execute(
             """
             INSERT INTO results
-            (user_id, subject, score)
-            VALUES (?, ?, ?)
+            (user_id, subject, difficulty, score)
+            VALUES (?, ?, ?, ?)
             """,
             (
                 session['user_id'],
                 subject,
+                difficulty,
                 percentage
             )
         )
 
         conn.commit()
         conn.close()
+    recommendation = ""
+    if percentage >= 80:
+        recommendation = "Excellent. Move to advanced interview questions."
 
+    elif percentage >= 60:
+        recommendation = "Good. Focus on improving explanation clarity."
+
+    elif percentage >= 40:
+        recommendation = "Revise core concepts and practice more."
+
+    else:
+        recommendation = "Study fundamentals before attempting advanced questions."
     return render_template(
         'result.html',
         score=percentage,
         user_answer=user_answer,
         model_answer=model_answer,
-        feedback=feedback
+        feedback=feedback,
+        recommendation=recommendation
     )
 
 @app.route('/leaderboard')
 def leaderboard():
+    if 'user_id' not in session:
+        return redirect('/login')
 
     conn = sqlite3.connect("interview.db")
     cursor = conn.cursor()
@@ -316,43 +338,157 @@ def leaderboard():
         leaders=leaders
     )
 
-@app.route('/resume')
+@app.route('/resume', methods=['GET', 'POST'])
 def resume():
+
+    if request.method == 'POST':
+
+        file = request.files['resume']
+
+        os.makedirs("uploads", exist_ok=True)
+
+        filepath = os.path.join(
+            "uploads",
+            file.filename
+        )
+
+        file.save(filepath)
+
+        resume_text = extract_resume_text(filepath)
+
+        skills = extract_skills(resume_text)
+
+        # SCORE CALCULATION FIRST
+        score = 50
+
+        score += len(skills) * 4
+
+        if len(resume_text) > 500:
+            score += 10
+
+        if len(resume_text) > 1000:
+            score += 10
+
+        score = min(score, 100)
+
+        # SUGGESTIONS AFTER SCORE EXISTS
+        suggestions = []
+
+        if "python" not in skills:
+            suggestions.append(
+                "Learn Python for software development and AI."
+            )
+
+        if "sql" not in skills:
+            suggestions.append(
+                "Add SQL skills for database management."
+            )
+
+        if "flask" not in skills:
+            suggestions.append(
+                "Build Flask projects to strengthen backend development."
+            )
+
+        if "machine learning" not in skills:
+            suggestions.append(
+                "Explore Machine Learning projects and courses."
+            )
+
+        if "github" not in skills:
+            suggestions.append(
+                "Use GitHub to showcase your projects."
+            )
+
+        if score >= 80:
+            suggestions.append(
+                "Excellent profile. Keep building advanced projects."
+            )
+        print("SKILLS:", skills)
+        print("SCORE:", score)
+        print("SUGGESTIONS:", suggestions)
+        return render_template(
+            "resume_result.html",
+            skills=skills,
+            score=score,
+            text=resume_text[:1000],
+            suggestions=suggestions
+        )
+
     return render_template("resume.html")
 
+def extract_skills(text):
 
-@app.route('/upload_resume', methods=['POST'])
-def upload_resume():
+    skills_db = [
+        "python",
+        "java",
+        "c++",
+        "c",
+        "sql",
+        "mysql",
+        "html",
+        "css",
+        "javascript",
+        "bootstrap",
+        "react",
+        "nodejs",
+        "flask",
+        "django",
+        "git",
+        "github",
+        "machine learning",
+        "deep learning",
+        "data science",
+        "artificial intelligence",
+        "tensorflow",
+        "pandas",
+        "numpy",
+        "opencv",
 
-    file = request.files['resume']
+        # general skills
+        "computer",
+        "ms office",
+        "excel",
+        "word",
+        "powerpoint",
+        "communication",
+        "leadership",
+        "teamwork",
+        "problem solving"
+    ]
 
-    path = os.path.join(
-        "uploads",
-        file.filename
-    )
+    text = text.lower()
 
-    file.save(path)
+    found_skills = []
 
-    doc = fitz.open(path)
+    for skill in skills_db:
+        if skill.lower() in text:
+            found_skills.append(skill)
 
+    return list(set(found_skills))
+
+def extract_resume_text(pdf_path):
     text = ""
 
-    for page in doc:
-        text += page.get_text()
-    found_skills = []
-    for skill in skills_db:
-        if skill.lower() in text.lower():
-            found_skills.append(skill)
-            
+    try:
+        reader = PdfReader(pdf_path)
 
-    return render_template(
-        "skills.html",
-        text=text,
-        skills=found_skills
-    )
+        for page in reader.pages:
+            page_text = page.extract_text()
+
+            if page_text:
+                text += page_text + "\n"
+
+    except Exception as e:
+        print("PDF Extraction Error:", e)
+
+    return text
+
+
 
 @app.route('/hr')
 def hr():
+    if 'user_id' not in session:
+        return redirect('/login')
 
     with open(
         "hr_questions.json"
@@ -374,13 +510,28 @@ def evaluate_hr():
 
     answer = request.form['answer']
 
-    score = 50
-
-    if len(answer.split()) > 50:
+    score = 0
+    words = len(answer.split())
+    if words >= 20:
         score += 20
+    if words >= 50:
+        score += 30
+    if words >= 100:
+        score += 30
 
-    if len(answer.split()) > 100:
-        score += 20
+    keywords = [
+        "team",
+        "leadership",
+        "project",
+        "challenge",
+        "communication"
+    ]
+
+    for keyword in keywords:
+        if keyword in answer.lower():
+            score += 4
+
+    score = min(score, 100)
 
     feedback = []
 
