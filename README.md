@@ -182,7 +182,7 @@ Interview performance analytics
 
 👩‍💻 Author
 
-Arpita Srivastava
+Arpita Srivastava(Btech CSE AI/ML)
 
 GitHub: https://github.com/Arpitasri007
 
